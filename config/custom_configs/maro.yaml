@@ -1,0 +1,28 @@
+perception: True
+checkpoint_path: ""
+load_step: 0
+
+model_type: "maro"
+
+comm_at_t0: True
+hidden_dim: 128
+append_masks_to_rl_input: False
+train_comm_p: 1.0
+accumulate_masks: False
+teacher_forcing: False
+
+learning_rate: 0.001
+grad_clip: 1.0
+batch_size: 32
+buffer_size: 5_000
+
+trainer_log_interval: 10_000
+save_model: True
+save_model_interval: 1_000_000
+
+# === MARO baseline (Santos et al. 2025) ===
+# value_aware: False -> RL agent and predictor train on INDEPENDENT batches
+#                       (predictor sampled from its own replay buffer above),
+#                       predictor loss unweighted. For the Value-Aware variant,
+#                       select custom_configs/va_maro.yaml instead.
+value_aware: False

@@ -1,0 +1,32 @@
+perception: True
+checkpoint_path: ""
+load_step: 0
+
+model_type: "maro"
+
+comm_at_t0: True
+hidden_dim: 128
+append_masks_to_rl_input: False
+train_comm_p: 1.0
+accumulate_masks: False
+teacher_forcing: False
+
+learning_rate: 0.001
+grad_clip: 1.0
+batch_size: 32
+buffer_size: 5_000
+
+trainer_log_interval: 10_000
+save_model: True
+save_model_interval: 1_000_000
+
+# === Value-Aware MARO (this work) ===
+# value_aware: True  -> predictor is trained on the SAME online batch as the RL
+#                       agent, weighting each transition's prediction loss by the
+#                       RL advantage. Requires an on-policy learner that returns
+#                       advantages (e.g. mappo/ppo_learner).
+value_aware: True
+
+# adv_lambda scales the advantage boost: weight = relu(1 + adv_lambda * advantage),
+# mean-normalized. Only used when value_aware is True.
+adv_lambda: 1.0
